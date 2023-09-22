@@ -26,9 +26,13 @@ def downloadMod(item):
         return
 
     mod_file = mod_versions_data[0]["files"][0]
+    file_name = mod_file["filename"]
+
+    if os.path.isfile(file_name):
+        print(f"{item} latest version exists, skipping download")
+        return
 
     file_url = requests.get(mod_file["url"]).content
-    file_name = mod_file["filename"]
     with open(file_name, "wb") as file:
         file.write(file_url)
 
