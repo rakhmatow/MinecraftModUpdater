@@ -25,11 +25,12 @@ def downloadMod(item):
         print(f"{item} doesn't support {mod_loader} {mc_version}")
         return
 
-    mod_version_to_download = mod_versions_data[0]
+    mod_file = mod_versions_data[0]["files"][0]
 
-    mod_file = requests.get(mod_version_to_download["files"][0]["url"]).content
-    filename = mod_version_to_download["files"][0]["filename"]
-    open(filename, "wb").write(mod_file)
+    file_url = requests.get(mod_file["url"]).content
+    file_name = mod_file["filename"]
+    with open(file_name, "wb") as file:
+        file.write(file_url)
 
 
 if __name__ == "__main__":
