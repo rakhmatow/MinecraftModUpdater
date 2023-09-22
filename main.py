@@ -7,12 +7,14 @@ mod_directory = "mods"
 
 
 def downloadMod(item):
-    query_params = {
-        "game_versions": f'["{mc_version}"]',
-        "loaders": f'["{mod_loader}"]',
-    }
     res = requests.get(
-        f"{modrinth_api_url}/project/{item}/version", params=query_params
+        f"{modrinth_api_url}/project/{item}/version",
+        params={
+            "game_versions": f'["{mc_version}"]',
+            "loaders": f'["{mod_loader}"]',
+        },
+        headers={"User-Agent": "rakhmatow/ModrinthModDownloader"},
+        timeout=10,
     )
 
     if not res.ok:
