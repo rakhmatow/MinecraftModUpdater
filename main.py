@@ -16,7 +16,7 @@ def downloadMod(item):
     )
 
     if not res.ok:
-        print(f"{item} not found!")
+        print(f"{item} 404")
         return
 
     mod_versions_data = json.loads(res.content)
@@ -32,6 +32,8 @@ def downloadMod(item):
         print(f"{item} latest version exists, skipping download")
         return
 
+    print(f"Downloading {item}")
+
     file_url = requests.get(mod_file["url"]).content
     with open(file_name, "wb") as file:
         file.write(file_url)
@@ -39,6 +41,7 @@ def downloadMod(item):
 
 if __name__ == "__main__":
     if not os.path.exists(mod_directory):
+        print(f"Mod directory '{mod_directory}' doesn't exist, creating it")
         os.mkdir(mod_directory)
 
     with open("config.yaml", "r") as file:
@@ -50,6 +53,10 @@ if __name__ == "__main__":
     modrinth_api_url = config["modrinth_api"]
 
     os.chdir(mod_directory)
+
+    print(f"Downloading mods for {mod_loader} {mc_version} into '{mod_directory}'")
+    print(f"Using Modrinth API URL: {modrinth_api_url}")
+    print()
 
     for item in mods_to_download:
         downloadMod(item)
