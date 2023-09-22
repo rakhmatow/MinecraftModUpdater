@@ -7,7 +7,7 @@ mod_directory = "mods"
 
 
 def downloadMod(item):
-    res = requests.get(f"https://api.modrinth.com/v2/project/{item}/version")
+    res = requests.get(f"{modrinth_api_url}/project/{item}/version")
 
     if not res.ok:
         print(f"{item} not found!")
@@ -35,6 +35,7 @@ if __name__ == "__main__":
 
     mods_to_download = config["mods"]
     mc_version = config["mc_version"]
+    modrinth_api_url = config["modrinth_api"]
 
     os.chdir(mod_directory)
 

@@ -1,3 +1,4 @@
+modrinth_api: "https://api.modrinth.com/v2"
 mc_version: "1.18.2"
 mods:
   - "krypton"
