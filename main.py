@@ -3,6 +3,8 @@ import requests
 import json
 import os
 
+mod_directory = "mods"
+
 
 def downloadMod(item):
     res = requests.get(f"https://api.modrinth.com/v2/project/{item}/version")
@@ -21,18 +23,20 @@ def downloadMod(item):
 
     mod_file = requests.get(mod_version_to_download["files"][0]["url"]).content
     filename = mod_version_to_download["files"][0]["filename"]
-    open(f"mods/{filename}", "wb").write(mod_file)
+    open(filename, "wb").write(mod_file)
 
 
 if __name__ == "__main__":
-    if not os.path.exists("mods"):
-        os.mkdir("mods")
+    if not os.path.exists(mod_directory):
+        os.mkdir(mod_directory)
 
     with open("config.yaml", "r") as file:
         config = yaml.safe_load(file)
 
     mods_to_download = config["mods"]
     mc_version = config["mc_version"]
+
+    os.chdir(mod_directory)
 
     for item in mods_to_download:
         downloadMod(item)
