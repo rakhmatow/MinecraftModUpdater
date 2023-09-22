@@ -7,7 +7,13 @@ mod_directory = "mods"
 
 
 def downloadMod(item):
-    res = requests.get(f"{modrinth_api_url}/project/{item}/version")
+    query_params = {
+        "game_versions": f'["{mc_version}"]',
+        "loaders": f'["{mod_loader}"]',
+    }
+    res = requests.get(
+        f"{modrinth_api_url}/project/{item}/version", params=query_params
+    )
 
     if not res.ok:
         print(f"{item} not found!")
@@ -15,11 +21,11 @@ def downloadMod(item):
 
     mod_versions_data = json.loads(res.content)
 
-    mod_version_to_download = ""
-    for mod_version in mod_versions_data:
-        if mc_version in mod_version["game_versions"]:
-            mod_version_to_download = mod_version
-            break
+    if not mod_versions_data:
+        print(f"{item} doesn't support {mod_loader} {mc_version}")
+        return
+
+    mod_version_to_download = mod_versions_data[0]
 
     mod_file = requests.get(mod_version_to_download["files"][0]["url"]).content
     filename = mod_version_to_download["files"][0]["filename"]
@@ -35,6 +41,7 @@ if __name__ == "__main__":
 
     mods_to_download = config["mods"]
     mc_version = config["mc_version"]
+    mod_loader = config["mod_loader"]
     modrinth_api_url = config["modrinth_api"]
 
     os.chdir(mod_directory)
