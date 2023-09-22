@@ -1,6 +1,5 @@
 import yaml
 import requests
-import json
 import os
 from multiprocessing import Process
 
@@ -20,7 +19,7 @@ def downloadMod(item):
         print(f"{item} 404")
         return
 
-    mod_versions_data = json.loads(res.content)
+    mod_versions_data = res.json()
 
     if not mod_versions_data:
         print(f"{item} doesn't support {mod_loader} {mc_version}")
