@@ -5,18 +5,10 @@ import os
 
 
 def downloadMod(item):
-    res = requests.get(f"https://api.modrinth.com/v2/project/{item}")
-
-    if not res.ok:
-        print(f"{item} not found!")
-        return
-
-    mod_data = json.loads(res.content)
-
     res = requests.get(f"https://api.modrinth.com/v2/project/{item}/version")
 
     if not res.ok:
-        print(f"{item} versions not found!")
+        print(f"{item} not found!")
         return
 
     mod_versions_data = json.loads(res.content)
