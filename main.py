@@ -2,6 +2,7 @@ import yaml
 import requests
 import json
 import os
+from multiprocessing import Process
 
 mod_directory = "mods"
 
@@ -59,4 +60,4 @@ if __name__ == "__main__":
     print()
 
     for item in mods_to_download:
-        downloadMod(item)
+        Process(target=downloadMod, args=(item,)).start()
