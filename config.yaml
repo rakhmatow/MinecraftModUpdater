@@ -38,18 +38,18 @@ mods:
   - "ebe"
 # extra mods:
 # decoration
-#  - "3dskinlayers"
-#  - "continuity"
-#  - "fallingleaves"
-#  - "eating-animation"
-#  - "lambdabettergrass"
-#  - "lambdynamiclights"
-#  - "presence-footsteps"
+#   - "3dskinlayers"
+#   - "continuity"
+#   - "fallingleaves"
+#   - "eating-animation"
+#   - "lambdabettergrass"
+#   - "lambdynamiclights"
+#   - "presence-footsteps"
 # gui
-#  - "sodium-extra"
-#  - "inventory-profiles-next"
-#  - "better-ping-display-fabric"
+#   - "sodium-extra"
+#   - "inventory-profiles-next"
+#   - "better-ping-display-fabric"
 # performance
-#  - "c2me-fabric"
+#   - "c2me-fabric"
 # misc
-#  - "bobby"
+#   - "bobby"
