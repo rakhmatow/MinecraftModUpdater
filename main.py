@@ -1,7 +1,7 @@
 import yaml
 import requests
 import os
-from multiprocessing import Process
+from multiprocessing import Pool, cpu_count
 
 mod_directory = "mods"
 
@@ -60,5 +60,5 @@ if __name__ == "__main__":
     print(f"Using Modrinth API URL: {modrinth_api_url}")
     print()
 
-    for item in mods_to_download:
-        Process(target=downloadMod, args=(item,)).start()
+    with Pool(cpu_count() * 2) as pool:
+        pool.map(downloadMod, mods_to_download)
