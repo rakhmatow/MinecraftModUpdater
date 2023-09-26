@@ -44,7 +44,11 @@ def downloadMod(item):
 if __name__ == "__main__":
     if not os.path.exists(mod_directory):
         print(f"Mod directory '{mod_directory}' doesn't exist, creating it")
-        os.mkdir(mod_directory)
+        try:
+            os.mkdir(mod_directory)
+        except OSError as e:
+            print(f"Error creating directory '{mod_directory}': {e}")
+            exit(1)
 
     with open("config.yaml", "r") as file:
         config = yaml.safe_load(file)
