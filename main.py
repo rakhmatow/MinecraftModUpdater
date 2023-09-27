@@ -4,6 +4,7 @@ import os
 from multiprocessing import Pool, cpu_count
 
 mod_directory = "mods"
+config_file = "config.yaml"
 
 
 def downloadMod(item):
@@ -50,8 +51,15 @@ if __name__ == "__main__":
             print(f"Error creating directory '{mod_directory}': {e}")
             exit(1)
 
-    with open("config.yaml", "r") as file:
-        config = yaml.safe_load(file)
+    try:
+        with open(config_file, "r") as file:
+            config = yaml.safe_load(file)
+    except OSError as e:
+        print(f"Error reading config file '{config_file}': {e}")
+        exit(1)
+    except yaml.YAMLError as e:
+        print(f"Error parsing config file '{config_file}': {e}")
+        exit(1)
 
     mods_to_download = config["mods"]
     mc_version = config["mc_version"]
